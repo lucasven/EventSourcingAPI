@@ -9,7 +9,7 @@ namespace EventSourcingMedium.API.Services.PostInformationServices.CommandServic
         {
             _appDbContext = appDbContext;
         }
-        public async Task<PostInformation> AddAsync(PostInformation postInformation)
+        public async Task<PostInformation?> AddAsync(PostInformation postInformation)
         {
             if (postInformation != null)
             {

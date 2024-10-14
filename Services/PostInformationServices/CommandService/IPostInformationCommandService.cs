@@ -4,6 +4,6 @@ namespace EventSourcingMedium.API.Services.PostInformationServices.CommandServic
 {
     public interface IPostInformationCommandService
     {
-        Task<PostInformation> AddAsync(PostInformation postInformation);
+        Task<PostInformation?> AddAsync(PostInformation postInformation);
     }
 }

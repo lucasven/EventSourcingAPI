@@ -45,16 +45,19 @@ namespace EventSourcingMedium.API.Services.EventStreaming
                 var eventType = eventData.EventType;
                 var eventPayload = eventData.Data;
                 var deserializedObject = DeserializeEvent(eventData, eventType);
-                streamEvents.Add(deserializedObject);
+                if(deserializedObject != null)
+                    streamEvents.Add(deserializedObject);
             }
             return streamEvents;
         }
 
-        public EventResponse DeserializeEvent(EventRecord eventData, string eventType)
+        public EventResponse? DeserializeEvent(EventRecord eventData, string eventType)
         {
             var item = Encoding.UTF8.GetString(eventData.Data.ToArray());
             var eventPayload = JsonConvert.DeserializeObject<EventResponse>(item);
-            eventPayload.EventType = eventType;
+            if(eventPayload != null)
+                eventPayload.EventType = eventType;
+
             return eventPayload;
         }
     }
