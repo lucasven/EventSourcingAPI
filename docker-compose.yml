@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+
+  eventstore:
+    container_name: esdb-docs
+    image: eventstore/eventstore:24.6
+    ports:
+      - '2113:2113'
+      - '1113:1113'
+    environment:
+      - EVENTSTORE_CLUSTER_SIZE=1
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_HTTP_PORT=2113
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+  mssql-server:
+    container_name: mssql-server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - '1433:1433'
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'P@ssw0rd'
+    volumes:
+      - ./data:/var/opt/mssql/data
+      - ./log:/var/opt/mssql/log
+      - ./secrets:/var/opt/mssql/secrets
